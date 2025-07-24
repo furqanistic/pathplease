@@ -50,7 +50,7 @@ const UserList = () => {
    ```
 
 3. **Manual Installation:**
-   - Download the `.vsix` file from [Releases](https://github.com/yourusername/pathplease/releases)
+   - Download the `.vsix` file from [Releases](https://github.com/furqanistic/pathplease/releases)
    - Run: `code --install-extension pathplease-1.0.0.vsix`
 
 ## 🎯 Quick Start
@@ -212,7 +212,7 @@ PathPlease automatically skips files that can't have comments:
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/pathplease.git
+git clone https://github.com/furqanistic/pathplease.git
 cd pathplease
 
 # Install dependencies
@@ -272,10 +272,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/yourusername/pathplease/issues)
-- 💡 **Feature Requests**: [GitHub Discussions](https://github.com/yourusername/pathplease/discussions)
-- 📧 **Email**: your.email@example.com
-- 🐦 **Twitter**: [@yourhandle](https://twitter.com/yourhandle)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/furqanistic/pathplease/issues)
+- 💡 **Feature Requests**: [GitHub Discussions](https://github.com/furqanistic/pathplease/discussions)
+- 📧 **Email**: furqanistic@gmail.com
+- 🐦 **Twitter**: [@furqanware](https://x.com/furqanware)
 
 ---
 
@@ -283,6 +283,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ for developers working with AI tools**
 
-[⭐ Star on GitHub](https://github.com/yourusername/pathplease) • [📦 VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=your-publisher-name.pathplease) • [🐛 Report Bug](https://github.com/yourusername/pathplease/issues)
+[⭐ Star on GitHub](https://github.com/furqanistic/pathplease) • [📦 VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=your-publisher-name.pathplease) • [🐛 Report Bug](https://github.com/furqanistic/pathplease/issues)
 
 </div>
