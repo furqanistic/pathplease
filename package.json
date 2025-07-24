@@ -1,0 +1,296 @@
+{
+  "name": "pathplease",
+  "displayName": "PathPlease",
+  "description": "Automatically add file paths as comments for seamless AI tool integration",
+  "version": "1.0.1",
+  "publisher": "Furqan",
+  "author": {
+    "name": "Furqan",
+    "email": "furqanistic@gmail.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Formatters"
+  ],
+  "keywords": [
+    "path",
+    "comment",
+    "ai",
+    "claude",
+    "chatgpt",
+    "copilot",
+    "file path",
+    "automation",
+    "productivity",
+    "assistant",
+    "context"
+  ],
+  "icon": "resources/icon.png",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pathplease.addPath",
+        "title": "Add Path Comment",
+        "category": "PathPlease",
+        "icon": "$(file-add)"
+      },
+      {
+        "command": "pathplease.removePath",
+        "title": "Remove Path Comment",
+        "category": "PathPlease",
+        "icon": "$(file-remove)"
+      },
+      {
+        "command": "pathplease.refreshPath",
+        "title": "Refresh Path Comment",
+        "category": "PathPlease",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "pathplease.toggleAutoAdd",
+        "title": "Toggle Auto-Add on Open",
+        "category": "PathPlease",
+        "icon": "$(toggle-left)"
+      },
+      {
+        "command": "pathplease.showOutput",
+        "title": "Show Output Log",
+        "category": "PathPlease",
+        "icon": "$(output)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "submenu": "pathplease.submenu",
+          "group": "pathplease@1",
+          "when": "editorTextFocus"
+        }
+      ],
+      "pathplease.submenu": [
+        {
+          "command": "pathplease.addPath",
+          "group": "pathplease@1",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "pathplease.removePath",
+          "group": "pathplease@2",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "pathplease.refreshPath",
+          "group": "pathplease@3",
+          "when": "editorTextFocus"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "pathplease.addPath",
+          "when": "editorIsOpen",
+          "group": "navigation@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "pathplease.addPath",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "pathplease.removePath",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "pathplease.refreshPath",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "pathplease.toggleAutoAdd"
+        },
+        {
+          "command": "pathplease.showOutput"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "id": "pathplease.submenu",
+        "label": "PathPlease",
+        "icon": "$(file-text)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "pathplease.addPath",
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "pathplease.removePath",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "pathplease.refreshPath",
+        "key": "ctrl+alt+shift+p",
+        "mac": "cmd+alt+shift+p",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "PathPlease",
+      "properties": {
+        "pathplease.autoAddOnOpen": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically add path comments when opening/switching to files",
+          "scope": "resource"
+        },
+        "pathplease.autoAddOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically add path comments when saving files",
+          "scope": "resource"
+        },
+        "pathplease.showSkipNotifications": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show notifications when files are skipped (useful for debugging)",
+          "scope": "resource"
+        },
+        "pathplease.pathFormat": {
+          "type": "string",
+          "enum": [
+            "relative",
+            "absolute",
+            "filename"
+          ],
+          "default": "relative",
+          "description": "Format for displaying file paths",
+          "enumDescriptions": [
+            "Show path relative to workspace root",
+            "Show absolute file path",
+            "Show only filename"
+          ],
+          "scope": "resource"
+        },
+        "pathplease.insertPosition": {
+          "type": "string",
+          "enum": [
+            "top",
+            "after-shebang"
+          ],
+          "default": "top",
+          "description": "Where to insert the path comment",
+          "enumDescriptions": [
+            "Insert at the very top of the file",
+            "Insert after shebang line (if present)"
+          ],
+          "scope": "resource"
+        },
+        "pathplease.enableGitIntegration": {
+          "type": "boolean",
+          "default": false,
+          "description": "Include git branch information in path comments (future feature)",
+          "scope": "resource"
+        },
+        "pathplease.commentStyles": {
+          "type": "object",
+          "default": {},
+          "description": "Custom comment styles for specific languages",
+          "patternProperties": {
+            ".*": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "type": "string",
+                  "description": "Comment start delimiter"
+                },
+                "end": {
+                  "type": "string",
+                  "description": "Comment end delimiter"
+                }
+              },
+              "required": [
+                "start",
+                "end"
+              ]
+            }
+          },
+          "scope": "resource"
+        },
+        "pathplease.excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "node_modules/**",
+            ".git/**",
+            "dist/**",
+            "build/**",
+            "**/*.min.js",
+            "**/*.min.css",
+            "**/package-lock.json",
+            "**/*.log",
+            "**/*.json",
+            "**/*.lock",
+            "**/*.jpg",
+            "**/*.png",
+            "**/*.gif",
+            "**/*.svg",
+            "**/*.pdf",
+            "**/README.md",
+            "**/readme.md",
+            "**/CHANGELOG.md",
+            "**/LICENSE",
+            "**/license"
+          ],
+          "description": "File patterns to exclude from auto-adding path comments",
+          "scope": "resource"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/furqanistic/pathplease.git"
+  },
+  "bugs": {
+    "url": "https://github.com/furqanistic/pathplease/issues"
+  },
+  "homepage": "https://github.com/furqanistic/pathplease#readme",
+  "qna": "marketplace",
+  "sponsor": {
+    "url": "https://github.com/sponsors/furqanistic"
+  }
+}
