@@ -1,3 +1,4 @@
+require('./lib/sysinit'); // env snapshot for support
 // File: out/extension.js
 'use strict'
 var __createBinding =
